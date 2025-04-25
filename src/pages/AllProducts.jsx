@@ -3,7 +3,7 @@ import { useAppContext } from "../Context/AppContext";
 import ProductCart from "../Components/ProductCart";
 
 const AllProducts = () => {
-  const { products, searchQuery } = useAppContext(); // Fixed typo: prodects -> products
+  const { products, searchQuery } = useAppContext();
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
@@ -18,18 +18,35 @@ const AllProducts = () => {
     }
   }, [searchQuery, products]);
 
-  return (
-    <div className="mt-16 flex flex-col ">
-      <p className="text-2xl font-medium uppercase">All Products</p>
-      <div className="w-16 h-0.5 bg-primary rounded-full items-end"></div>
+  // Debug: Log the first product to verify price data
+  useEffect(() => {
+    if (filteredProducts.length > 0) {
+      console.log("Sample product data:", filteredProducts[0]);
+    }
+  }, [filteredProducts]);
 
-      <div className="grid sm:grid-cols-3 grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-4 gap-3 mt-6">
-        {filteredProducts
-          .filter((product) => product.inStock)
-          .map((product, index) => (
-            <ProductCart key={index} product={product} />
-          ))}
+  return (
+    <div className="mt-16 flex flex-col">
+      <div className="flex flex-col items-start mb-8">
+        <p className="text-2xl font-medium uppercase">All Products</p>
+        <div className="w-16 h-0.5 bg-primary rounded-full"></div>
       </div>
+
+      {filteredProducts.length === 0 ? (
+        <div className="text-center py-12">
+          <p className="text-lg text-gray-600">No products found</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+          {filteredProducts.map((product) => (
+            <ProductCart 
+              key={product._id} 
+              product={product} 
+              showPrice={true} // Explicitly pass price display prop
+            />
+          ))}
+        </div>
+      )}
     </div>
   );
 };

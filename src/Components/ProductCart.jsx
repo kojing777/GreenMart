@@ -7,12 +7,17 @@ const ProductCart = ({ product }) => {
 
   if (!product) return null;
 
+  const handleProductClick = () => {
+    navigate(`/product/${product.category.toLowerCase()}/${product._id}`);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <div 
       className="relative border border-gray-200 rounded-xl bg-white overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300 hover:-translate-y-1 group"
-      onClick={() => navigate(`/product/${product._id}`)}
+      onClick={handleProductClick}
     >
-      {/* Product Image with Hover Effect */}
+      {/* Product Image */}
       <div className="relative h-48 overflow-hidden">
         <img
           className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
@@ -22,21 +27,8 @@ const ProductCart = ({ product }) => {
             e.target.src = assets.placeholder_image;
           }}
         />
-        {/* Quick View Overlay */}
-        <div className="absolute inset-0 bg-black/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-          <button 
-            className="bg-white/90 text-primary px-4 py-2 rounded-full font-medium opacity-0 group-hover:opacity-100 transition-all duration-500 translate-y-4 group-hover:translate-y-0"
-            onClick={(e) => {
-              e.stopPropagation();
-              navigate(`/product/${product._id}`);
-            }}
-          >
-            Quick View
-          </button>
-        </div>
       </div>
 
-      {/* Product Info */}
       <div className="p-4">
         <p className="text-gray-500 text-sm capitalize">{product.category}</p>
         <h3 className="text-gray-800 font-semibold text-lg truncate mt-1">{product.name}</h3>
@@ -54,24 +46,20 @@ const ProductCart = ({ product }) => {
           <span className="text-gray-500 text-xs ml-1">({product.ratingCount || 24})</span>
         </div>
 
-        {/* Price */}
+        {/* Price Section - Updated with better handling */}
         <div className="flex items-end justify-between mt-3">
           <div>
             <p className="text-xl font-bold text-primary">
-              {currency}{product.offerPrice || product.price}
+              {currency}{product.offerPrice ?? product.price ?? 'N/A'}
             </p>
-            {product.offerPrice && (
+            {product.offerPrice && product.price > product.offerPrice && (
               <p className="text-gray-400 text-sm line-through">
                 {currency}{product.price}
               </p>
             )}
           </div>
 
-          {/* Add to Cart */}
-          <div 
-            className="relative z-10" 
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div onClick={(e) => e.stopPropagation()}>
             {!cartItems[product._id] ? (
               <button
                 className="flex items-center justify-center gap-1 bg-primary/10 hover:bg-primary/20 border border-primary/30 w-20 h-8 rounded-full text-primary font-medium transition-all duration-300 hover:shadow-md"
@@ -101,8 +89,7 @@ const ProductCart = ({ product }) => {
         </div>
       </div>
 
-      {/* Sale Badge */}
-      {product.offerPrice && (
+      {product.offerPrice && product.price > product.offerPrice && (
         <div className="absolute top-3 left-3 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full">
           SALE
         </div>
