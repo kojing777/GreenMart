@@ -11,8 +11,7 @@ const ProductCategory = () => {
     const searchCategory = categories.find((item) => 
         item.path.toLowerCase() === category
     );
-
-    // Filter products (with null check)
+    
     const filteredProducts = searchCategory 
         ? products.filter((product) => 
             product.category.toLowerCase() === category

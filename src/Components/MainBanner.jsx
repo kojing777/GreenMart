@@ -60,7 +60,7 @@ const MainBanner = () => {
 
 
       {/* Add these styles to your main CSS file */}
-      <style jsx>{`
+      <style >{`
         @keyframes fadeIn {
           from { opacity: 0; }
           to { opacity: 1; }

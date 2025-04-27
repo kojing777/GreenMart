@@ -27,7 +27,7 @@ const Categories = () => {
               window.scrollTo(0, 0);
             }}
           >
-            {/* Background with rounded corners and shine effect */}
+
             <div 
               className="h-40 flex flex-col items-center justify-center p-5 transition-all duration-500 group-hover:brightness-95"
               style={{ 
@@ -41,7 +41,6 @@ const Categories = () => {
                   src={category.image}
                   alt={category.text}
                 />
-                {/* Circular shine effect */}
                 <div className="absolute inset-0 rounded-full bg-white/10 scale-0 group-hover:scale-100 transition-transform duration-700"></div>
               </div>
               <h3 className="text-base font-semibold text-center text-gray-800 group-hover:text-gray-900 transition-colors">
@@ -49,19 +48,17 @@ const Categories = () => {
               </h3>
             </div>
             
-            {/* Glow effect */}
             <div className="absolute inset-0 rounded-2xl pointer-events-none overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-white/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
             </div>
             
-            {/* Border animation */}
+
             <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-white/30 transition-all duration-500"></div>
           </div>
         ))}
       </div>
 
-      {/* Add these styles to your main CSS file */}
-      <style jsx>{`
+      <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(10px); }
           to { opacity: 1; transform: translateY(0); }

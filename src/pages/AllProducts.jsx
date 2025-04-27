@@ -17,8 +17,7 @@ const AllProducts = () => {
       setFilteredProducts(products);
     }
   }, [searchQuery, products]);
-
-  // Debug: Log the first product to verify price data
+  
   useEffect(() => {
     if (filteredProducts.length > 0) {
       console.log("Sample product data:", filteredProducts[0]);
@@ -42,7 +41,7 @@ const AllProducts = () => {
             <ProductCart 
               key={product._id} 
               product={product} 
-              showPrice={true} // Explicitly pass price display prop
+              showPrice={true}
             />
           ))}
         </div>

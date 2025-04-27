@@ -17,7 +17,7 @@ const Login = () => {
     setIsSubmitting(true);
     
     try {
-      // Simulate API call
+    
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       setUser({
@@ -25,7 +25,6 @@ const Login = () => {
         email: email || "kojing92@example.com",
       });
       
-      // Show success toast
       toast.success(
         state === "register" 
           ? "Account created successfully!" 
@@ -43,7 +42,7 @@ const Login = () => {
       
       setShowUserLogin(false);
     } catch (error) {
-      // Show error toast if there was an issue
+
       toast.error(
         state === "register" 
           ? "Failed to create account. Please try again." 

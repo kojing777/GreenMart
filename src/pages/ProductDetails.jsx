@@ -1,4 +1,3 @@
-import React from "react";
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useAppContext } from "../Context/AppContext";
@@ -59,7 +58,7 @@ const ProductDetails = () => {
 
     return (
         <div className="container mx-auto px-4 py-8">
-            {/* Breadcrumb Navigation */}
+
             <nav className="flex items-center text-sm mb-8">
                 <Link to="/" className="text-gray-600 hover:text-primary transition">Home</Link>
                 <span className="mx-2 text-gray-400">/</span>
@@ -70,10 +69,8 @@ const ProductDetails = () => {
                 <span className="text-primary font-medium">{product.name}</span>
             </nav>
 
-            {/* Product Details Section */}
             <div className="flex flex-col lg:flex-row gap-12">
-                {/* Product Images */}
-  {/* Thumbnails */}
+
 <div className="flex md:flex-col gap-3 overflow-x-auto md:overflow-x-visible pb-2 md:pb-0">
     {product.image.map((image, index) => (
         <div 
@@ -90,21 +87,18 @@ const ProductDetails = () => {
     ))}
 </div>
 
-{/* Main Image */}
 <div className="flex-1 bg-white  p-4 rounded-lg shadow-sm border border-gray-100">
     <div className="aspect-square w-full overflow-hidden rounded-md flex justify-center">
         <img 
             src={thumbnail || product.image[0]} 
             alt={product.name}
-            className="object-contain max-h-[400px] w-auto"  // Constrained height
+            className="object-contain max-h-[400px] w-auto"
         />
     </div>
 </div>
-                {/* Product Info */}
                 <div className="w-full lg:w-1/2">
                     <h1 className="text-3xl font-bold text-gray-900 mb-2">{product.name}</h1>
                     
-                    {/* Rating */}
                     <div className="flex items-center mb-4">
                         <div className="flex items-center mr-2">
                             {Array(5).fill('').map((_, i) => (
@@ -119,7 +113,7 @@ const ProductDetails = () => {
                         <span className="text-gray-600">({product.rating} reviews)</span>
                     </div>
 
-                    {/* Price */}
+
                     <div className="mb-6">
                         <div className="flex items-baseline gap-3">
                             <p className="text-3xl font-bold text-primary">${product.offerPrice}</p>
