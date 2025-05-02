@@ -21,11 +21,12 @@ const Login = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       setUser({
-        name: name || "kojing",
-        email: email || "kojing92@example.com",
+        name: name || "Bijaya",
+        email: email || "kojingmoktan92@example.com",
       });
       
       toast.success(
+
         state === "register" 
           ? "Account created successfully!" 
           : "Logged in successfully!",
@@ -93,7 +94,7 @@ const Login = () => {
             <input
               onChange={(e) => setName(e.target.value)}
               value={name}
-              placeholder="kojng moktan"
+              placeholder="Bijaya Moktan"
               className="w-full p-2.5 mt-1 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
               type="text"
               required
@@ -106,7 +107,7 @@ const Login = () => {
           <input
             onChange={(e) => setEmail(e.target.value)}
             value={email}
-            placeholder="Kojing@email.com"
+            placeholder="BijayaMoktan999@gmail.com"
             className="w-full p-2.5 mt-1 rounded-lg border border-gray-300 focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
             type="email"
             required

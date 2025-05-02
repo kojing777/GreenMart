@@ -21,7 +21,9 @@ const Navbar = () => {
   }, [searchQuery]);
 
   return (
-    <nav className="flex items-center justify-between px-4 md:px-14 py-5 border-b h-20 border-gray-300 bg-white sticky top-0 z-50 shadow-sm">
+    <nav className="flex items-center justify-between pl-2 pr-8 md:pl-18 md:pr-30 py-8 border-b h-20 border-gray-300 bg-white sticky top-0 z-50 shadow-sm">
+
+
       <NavLink to="/" className="flex-shrink-0 h-20 w-auto ml-0 md:ml-12 mr- md:mr-8">
         <img src={Groceezy} alt="Groceezy Logo" className="h-full w-auto object-contain" />
       </NavLink>
@@ -31,13 +33,12 @@ const Navbar = () => {
         <NavLink to="/" className="text-gray-700 hover:text-primary font-medium text-sm lg:text-base">
           Home
         </NavLink>
-        <NavLink to="ButtomBanner" className="text-gray-700 hover:text-primary font-medium text-sm lg:text-base">
-          Features
-        </NavLink>
         <NavLink to="Products" className="text-gray-700 hover:text-primary font-medium text-sm lg:text-base">
           All Products
         </NavLink>
-
+        <NavLink to="contact" className="text-gray-700 hover:text-primary font-medium text-sm lg:text-base">
+          Contact
+        </NavLink>
         {/* Search Bar */}
         <div className="hidden xl:flex items-center w-64 border border-gray-300 rounded-full px-4 py-2">
           <input
