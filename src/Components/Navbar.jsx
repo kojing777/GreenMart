@@ -1,42 +1,77 @@
 import React, { useEffect } from "react";
-import { useNavigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { assets } from "../assets/assets";
 import { useAppContext } from "../Context/AppContext";
 import Groceezy from "../assets/Groceezy.png";
+import { toast } from "react-hot-toast";
+import axios from "axios";
 
 const Navbar = () => {
   const [open, setOpen] = React.useState(false);
-  const { user, setUser, setShowUserLogin, setSearchQuery, searchQuery ,getCartCount} = useAppContext();
-  const Navigate = useNavigate();
+  const {
+    user,
+    setUser,
+    setShowUserLogin,
+    setSearchQuery,
+    searchQuery,
+    getCartCount,
+    navigate,
+  } = useAppContext();
 
-  const logOut = async () => {
-    setUser(null);
-    Navigate("/");
+  const logout = async () => {
+    try {
+      const { data } = await axios.get("/api/user/logout");
+      if (data.success) {
+        toast.success(data.message);
+        setUser(null);
+        navigate('/');
+      } else {
+        toast.error(data.message);
+      }
+    } catch (error) {
+      toast.error(error.message);
+
+    }
   };
 
   useEffect(() => {
     if (searchQuery.length > 0) {
-      Navigate("/products");
+      navigate("/products");
     }
-  }, [searchQuery]);
+  }, [searchQuery, navigate]); 
 
+  
   return (
     <nav className="flex items-center justify-between pl-2 pr-8 md:pl-18 md:pr-30 py-8 border-b h-20 border-gray-300 bg-white sticky top-0 z-50 shadow-sm">
-
-
-      <NavLink to="/" className="flex-shrink-0 h-20 w-auto ml-0 md:ml-12 mr- md:mr-8">
-        <img src={Groceezy} alt="Groceezy Logo" className="h-full w-auto object-contain" />
+      <NavLink
+        to="/"
+        className="flex-shrink-0 h-20 w-auto ml-0 md:ml-12 mr- md:mr-8"
+      >
+        <img
+          src={Groceezy}
+          alt="Groceezy Logo"
+          className="h-full w-auto object-contain"
+        />
       </NavLink>
 
       {/* Desktop Menu */}
       <div className="hidden md:flex items-center space-x-6 lg:space-x-8">
-        <NavLink to="/" className="text-gray-700 hover:text-primary font-medium text-sm lg:text-base">
+        <NavLink
+          to="/"
+          className="text-gray-700 hover:text-primary font-medium text-sm lg:text-base"
+        >
           Home
         </NavLink>
-        <NavLink to="Products" className="text-gray-700 hover:text-primary font-medium text-sm lg:text-base">
+        <NavLink
+          to="Products"
+          className="text-gray-700 hover:text-primary font-medium text-sm lg:text-base"
+        >
           All Products
         </NavLink>
-        <NavLink to="contact" className="text-gray-700 hover:text-primary font-medium text-sm lg:text-base">
+        <NavLink
+          to="contact"
+          className="text-gray-700 hover:text-primary font-medium text-sm lg:text-base"
+        >
           Contact
         </NavLink>
         {/* Search Bar */}
@@ -50,7 +85,10 @@ const Navbar = () => {
         </div>
 
         {/* Cart Icon */}
-        <div onClick={()=>Navigate("/cart")} className="relative cursor-pointer group">
+        <div
+          onClick={() => navigate("/cart")}
+          className="relative cursor-pointer group"
+        >
           <img
             src={assets.nav_cart_icon}
             alt="cart"
@@ -71,7 +109,10 @@ const Navbar = () => {
           </button>
         ) : (
           <div className="relative">
-            <div className="flex items-center gap-2 cursor-pointer" onClick={() => setOpen(!open)}>
+            <div
+              className="flex items-center gap-2 cursor-pointer"
+              onClick={() => setOpen(!open)}
+            >
               <img
                 src={assets.profile_icon}
                 alt="Profile"
@@ -87,18 +128,26 @@ const Navbar = () => {
                 className="absolute top-full right-0 mt-2 bg-white shadow-lg rounded-md w-48 overflow-hidden z-50"
                 ref={(el) => {
                   const handleClickOutside = (event) => {
-                    if (el && !el.contains(event.target) && !event.target.closest(".relative")) {
+                    if (
+                      el &&
+                      !el.contains(event.target) &&
+                      !event.target.closest(".relative")
+                    ) {
                       setOpen(false);
                     }
                   };
                   document.addEventListener("mousedown", handleClickOutside);
-                  return () => document.removeEventListener("mousedown", handleClickOutside);
+                  return () =>
+                    document.removeEventListener(
+                      "mousedown",
+                      handleClickOutside
+                    );
                 }}
               >
                 <li
                   className="px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer border-b border-gray-100"
                   onClick={() => {
-                    Navigate("/my-orders");
+                    navigate("/my-orders");
                     setOpen(false);
                   }}
                 >
@@ -107,10 +156,11 @@ const Navbar = () => {
                 <li
                   className="px-4 py-3 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                   onClick={() => {
-                    logOut();
+                    logout();
                     setOpen(false);
                   }}
                 >
+
                   Logout
                 </li>
               </ul>
@@ -121,7 +171,10 @@ const Navbar = () => {
 
       {/* Mobile Menu Button */}
       <div className="flex items-center sm:hidden gap-6">
-      <div onClick={()=>Navigate("/cart")} className="relative cursor-pointer group">
+        <div
+          onClick={() => navigate("/cart")}
+          className="relative cursor-pointer group"
+        >
           <img
             src={assets.nav_cart_icon}
             alt="cart"
@@ -131,48 +184,88 @@ const Navbar = () => {
             {getCartCount()}
           </span>
         </div>
-      <button
-        onClick={() => setOpen(!open)}
-        aria-label="Menu"
-        className="md:hidden p-2 rounded-md text-gray-700 hover:text-primary"
-      >
-        {open ? (
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        ) : (
-          <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-        )}
-      </button>
-        
+        <button
+          onClick={() => setOpen(!open)}
+          aria-label="Menu"
+          className="md:hidden p-2 rounded-md text-gray-700 hover:text-primary"
+        >
+          {open ? (
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          ) : (
+            <svg
+              className="h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 6h16M4 12h16M4 18h16"
+              />
+            </svg>
+          )}
+        </button>
       </div>
-   
 
       {/* Mobile Menu */}
       {open && (
         <div className="md:hidden absolute top-full left-0 w-full bg-white shadow-lg py-3 px-4 flex flex-col space-y-3 border-t border-gray-200">
-          <NavLink to="/" className="py-2 px-3 text-gray-700 hover:bg-gray-100" onClick={() => setOpen(false)}>
+          <NavLink
+            to="/"
+            className="py-2 px-3 text-gray-700 hover:bg-gray-100"
+            onClick={() => setOpen(false)}
+          >
             Home
           </NavLink>
-          <NavLink to="Products" className="py-2 px-3 text-gray-700 hover:bg-gray-100" onClick={() => setOpen(false)}>
+          <NavLink
+            to="Products"
+            className="py-2 px-3 text-gray-700 hover:bg-gray-100"
+            onClick={() => setOpen(false)}
+          >
             All Products
           </NavLink>
           {user && (
-            <NavLink to="/my-orders" className="py-2 px-3 text-gray-700 hover:bg-gray-100" onClick={() => setOpen(false)}>
+            <NavLink
+              to="/my-orders"
+              className="py-2 px-3 text-gray-700 hover:bg-gray-100"
+              onClick={() => setOpen(false)}
+            >
               My Orders
             </NavLink>
           )}
-          <NavLink to="Contact" className="py-2 px-3 text-gray-700 hover:bg-gray-100" onClick={() => setOpen(false)}>
+          <NavLink
+            to="Contact"
+            className="py-2 px-3 text-gray-700 hover:bg-gray-100"
+            onClick={() => setOpen(false)}
+          >
             Contact
           </NavLink>
 
           {/* Mobile Profile */}
           {user && (
             <div className="flex items-center gap-3 mt-3">
-              <img src={assets.profile_icon} alt="Profile" className="w-9 h-9 rounded-full object-cover" />
-              <span className="text-gray-700 text-sm font-medium">My Account</span>
+              <img
+                src={assets.profile_icon}
+                alt="Profile"
+                className="w-9 h-9 rounded-full object-cover"
+              />
+              <span className="text-gray-700 text-sm font-medium">
+                My Account
+              </span>
             </div>
           )}
 
@@ -203,7 +296,7 @@ const Navbar = () => {
                 <button
                   onClick={() => {
                     setOpen(false);
-                    Navigate("/my-orders");
+                    navigate("/my-orders");
                   }}
                   className="flex-1 px-4 py-2 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-full text-sm"
                 >
@@ -212,7 +305,7 @@ const Navbar = () => {
                 <button
                   onClick={() => {
                     setOpen(false);
-                    logOut();
+                    logout();
                   }}
                   className="flex-1 px-4 py-2 bg-red-50 hover:bg-red-100 text-red-600 rounded-full text-sm"
                 >

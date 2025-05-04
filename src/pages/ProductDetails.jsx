@@ -176,7 +176,7 @@ const ProductDetails = () => {
                         ))}
                     </div>
                     
-                    {relatedProducts.length >= 5 && (
+                    {relatedProducts.length >= 1 && (
                      <button 
                      onClick={() => {
                          navigate('/products');

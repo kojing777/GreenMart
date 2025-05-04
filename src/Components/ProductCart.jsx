@@ -3,7 +3,7 @@ import { assets } from "../assets/assets";
 import { useAppContext } from "../Context/AppContext";
 
 const ProductCart = ({ product, showPrice = true }) => {
-  const { currency, addToCart, removeFromCart, cartItems, navigate } = useAppContext();
+  const { addToCart, removeFromCart, cartItems, navigate } = useAppContext();
 
   if (!product) return null;
 

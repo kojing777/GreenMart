@@ -1,5 +1,5 @@
 import React from 'react'
-import { assets, footerLinks } from '../assets/assets'
+import { footerLinks } from '../assets/assets'
 import { Link } from 'react-router-dom'
 import Groceezy from "../assets/Groceezy.png";
 import { FaFacebook, FaTwitter, FaInstagram, FaLinkedin } from 'react-icons/fa'
