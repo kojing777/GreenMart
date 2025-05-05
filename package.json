@@ -9,6 +9,8 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
+
+  
   "dependencies": {
     "@tailwindcss/vite": "^4.1.4",
     "axios": "^1.9.0",

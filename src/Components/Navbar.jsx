@@ -5,7 +5,6 @@ import { useAppContext } from "../Context/AppContext";
 import Groceezy from "../assets/Groceezy.png";
 import { toast } from "react-hot-toast";
 import axios from "axios";
-
 const Navbar = () => {
   const [open, setOpen] = React.useState(false);
   const {
