@@ -42,7 +42,17 @@ const Navbar = () => {
 
   
   return (
-    <nav className="flex items-center justify-between pl-2 pr-8 md:pl-18 md:pr-30 py-8 border-b h-20 border-gray-300 bg-white sticky top-0 z-50 shadow-sm">
+    <div className="sticky top-0 z-50">
+      <div className="w-full py-2.5 font-medium text-sm text-white bg-gradient-to-r from-green-100 via-primary to-green-100">
+    <div className="max-w-screen-xl mx-auto flex flex-col sm:flex-row justify-center items-center gap-4 text-center">
+        <p>🚚 Free Shipping on Orders Above $100</p>
+        <span className="hidden sm:inline">|</span>
+        <p>🎁 20% OFF on First Purchase</p>
+        <span className="hidden sm:inline">|</span>
+        <p>🔐 Use Code: <strong>Groceezy10</strong></p>
+    </div>
+</div>
+    <nav className="flex items-center justify-between pl-2 pr-8 md:pl-18 md:pr-30 py-8 border-b h-18 border-gray-300 bg-white sticky top-0 z-50 shadow-sm">
       <NavLink
         to="/"
         className="flex-shrink-0 h-20 w-auto ml-0 md:ml-12 mr- md:mr-8"
@@ -68,12 +78,7 @@ const Navbar = () => {
         >
           All Products
         </NavLink>
-        <NavLink
-          to="contact"
-          className="text-gray-700 hover:text-primary font-medium text-sm lg:text-base"
-        >
-          Contact
-        </NavLink>
+      
         {/* Search Bar */}
         <div className="hidden xl:flex items-center w-64 border border-gray-300 rounded-full px-4 py-2">
           <input
@@ -317,6 +322,7 @@ const Navbar = () => {
         </div>
       )}
     </nav>
+    </div>
   );
 };
 
